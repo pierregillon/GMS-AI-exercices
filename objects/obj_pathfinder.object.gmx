@@ -30,8 +30,6 @@ nextPositionX = 0;
 nextPositionY = 0;
 positionInPath = 0;
 alarm[0] = 1;
-
-mp_potential_settings(30, 2, 2, true);
 </string>
           </argument>
         </arguments>
@@ -119,7 +117,7 @@ alarm[0] = 20;
         alarm[0] = 20;
     }
 }
-mp_potential_step(nextPositionX, nextPositionY, 3, false);
+mp_potential_step(nextPositionX, nextPositionY, 2, false);
 image_angle = direction;
 </string>
           </argument>
@@ -180,13 +178,16 @@ image_angle = direction;
           <argument>
             <kind>1</kind>
             <string>draw_self();
-draw_path(path, x, y, true);
 
-for(var i=0 ; i &lt; path_get_number(path) ; i++){
-    draw_circle_colour(path_get_point_x(path, i), path_get_point_y(path, i), 2, c_red, c_red, false);
+if(global.debug) {
+    draw_path(path, x, y, true);
+    
+    for(var i=0 ; i &lt; path_get_number(path) ; i++){
+        draw_circle_colour(path_get_point_x(path, i), path_get_point_y(path, i), 2, c_red, c_red, false);
+    }
+    
+    draw_circle_colour(nextPositionX, nextPositionY, 2, c_blue, c_blue, false);
 }
-
-draw_circle_colour(nextPositionX, nextPositionY, 2, c_blue, c_blue, false);
 </string>
           </argument>
         </arguments>

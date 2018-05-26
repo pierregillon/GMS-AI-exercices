@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>mp_grid_clear_cell(global.AI_grid, x div 32, y div 32); //Clears the AI grid before destroying itself...
+            <string>mp_grid_clear_cell(global.AI_grid, x div global.AI_grid_cell_size, y div global.AI_grid_cell_size);
 
 </string>
           </argument>

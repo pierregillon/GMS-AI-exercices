@@ -28,11 +28,8 @@
             <string>alarm[0] = room_speed;
 
 global.AI_grid = mp_grid_create(0, 0, room_width / 16, room_height / 16, 32, 32);
-global.path = path_add();
 
 mp_grid_add_instances(global.AI_grid, obj_wall, false);
-
-scr_Define_Path();
 </string>
           </argument>
         </arguments>
@@ -92,15 +89,16 @@ else {
     with(inst) {
         mp_grid_add_instances(global.AI_grid, id, false);
     }
-    if(scr_Define_Path()) {
-        with(obj_pathfinder) {
-            xx = path_get_point_x(global.path, pos);
-            yy = path_get_point_y(global.path, pos);
+    with(obj_pathfinder) {
+        if(scr_Define_Path(path)) {
+            pos = 1;
+            xx = path_get_point_x(path, pos);
+            yy = path_get_point_y(path, pos);
         }
-    }
-    else {
-        with(inst) {
-            instance_destroy();
+        else {
+            with(inst) {
+                instance_destroy();
+            }
         }
     }
 }
@@ -126,8 +124,7 @@ else {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>path_delete(global.path);
-mp_grid_destroy(global.AI_grid);
+            <string>mp_grid_destroy(global.AI_grid);
 </string>
           </argument>
         </arguments>
@@ -163,7 +160,6 @@ for(i=0 ; i &lt; room_height ; i+= 32) {
 }
 
 draw_set_alpha(1);
-draw_path(global.path, x, y, true);
 </string>
           </argument>
         </arguments>
@@ -183,6 +179,54 @@ draw_path(global.path, x, y, true);
         <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
+      </action>
+    </event>
+    <event eventtype="10" enumb="32">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>var snap_x = (mouse_x div 32) * 32;
+var snap_y = (mouse_y div 32) * 32;
+
+var inst = instance_position(snap_x, snap_y, obj_wall);
+
+if instance_exists(inst) {
+    with(inst) instance_destroy();
+}
+else {
+    inst = instance_create(snap_x, snap_y, obj_wall);
+    with(inst) {
+        mp_grid_add_instances(global.AI_grid, id, false);
+    }
+    with(obj_pathfinder) {
+        if(scr_Define_Path(path)) {
+            pos = 1;
+            xx = path_get_point_x(path, pos);
+            yy = path_get_point_y(path, pos);
+        }
+        else {
+            with(inst) {
+                instance_destroy();
+            }
+        }
+    }
+}
+</string>
+          </argument>
+        </arguments>
       </action>
     </event>
   </events>

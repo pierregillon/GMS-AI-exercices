@@ -25,13 +25,34 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//xx = obj_Finish.x;
-//yy = obj_Finish.y;
-//move_towards_point(xx, yy, 5);
-
-pos = 1;
-xx = path_get_point_x(global.path, pos);
-yy = path_get_point_y(global.path, pos);
+            <string>pos = 1;
+path = path_add();
+scr_Define_Path(path);
+xx = path_get_point_x(path, pos);
+yy = path_get_point_y(path, pos);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>path_delete(path);
 </string>
           </argument>
         </arguments>
@@ -56,12 +77,12 @@ yy = path_get_point_y(global.path, pos);
             <kind>1</kind>
             <string>if(point_distance(x, y, xx, yy) &lt; 6) {
     pos++;
-    if( pos = path_get_number(global.path) ) {
+    if( pos = path_get_number(path) ) {
         instance_destroy();
     }
     else {
-        xx = path_get_point_x(global.path, pos);
-        yy = path_get_point_y(global.path, pos); 
+        xx = path_get_point_x(path, pos);
+        yy = path_get_point_y(path, pos); 
     }
 }
 mp_potential_step(xx, yy, 3, false);
@@ -85,6 +106,50 @@ image_angle = direction;
         <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>104</id>
+        <kind>0</kind>
+        <userelative>-1</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_set_vspeed</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>0</kind>
+            <string>0</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_self();
+draw_path(path, x, y, true);
+</string>
+          </argument>
+        </arguments>
       </action>
     </event>
   </events>

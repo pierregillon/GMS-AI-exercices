@@ -5,7 +5,6 @@ var fy = obj_Finish.y;
 var path = argument[0];
 
 if( !mp_grid_path(global.AI_grid, path, sx, sy, fx, fy, true) ){
-    show_message("NO PATH !!!");
     return false;
 }
 else {

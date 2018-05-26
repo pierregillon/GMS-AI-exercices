@@ -116,6 +116,7 @@ alarm[0] = 20;
     if( positionInPath &lt;= path_get_number(path) ) {
         nextPositionX = path_get_point_x(path, positionInPath);
         nextPositionY = path_get_point_y(path, positionInPath); 
+        alarm[0] = 20;
     }
 }
 mp_potential_step(nextPositionX, nextPositionY, 3, false);
@@ -184,6 +185,8 @@ draw_path(path, x, y, true);
 for(var i=0 ; i &lt; path_get_number(path) ; i++){
     draw_circle_colour(path_get_point_x(path, i), path_get_point_y(path, i), 2, c_red, c_red, false);
 }
+
+draw_circle_colour(nextPositionX, nextPositionY, 2, c_blue, c_blue, false);
 </string>
           </argument>
         </arguments>

@@ -25,12 +25,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>pos = 1;
-path = path_add();
-scr_Define_Path(path);
-xx = path_get_point_x(path, pos);
-yy = path_get_point_y(path, pos);
-alarm[0] = 10;
+            <string>path = path_add();
+nextPositionX = 0;
+nextPositionY = 0;
+positionInPath = 0;
+alarm[0] = 1;
+
+mp_potential_settings(30, 2, 2, true);
 </string>
           </argument>
         </arguments>
@@ -76,18 +77,18 @@ alarm[0] = 10;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>with(obj_pathfinder) {
-    if(scr_Define_Path(path)) {
-        xx = path_get_point_x(path, 1);
-        yy = path_get_point_y(path, 1);
-    }
-    else {
-        xx = x;
-        yy = y;
-    }
+            <string>if(scr_Define_Path(path)) {
+    positionInPath = 1;
+    nextPositionX = path_get_point_x(path, positionInPath);
+    nextPositionY = path_get_point_y(path, positionInPath);
+}
+else {
+    nextPositionX = obj_Finish.x;
+    nextPositionY = obj_Finish.y;
 }
 
-alarm[0] = 10;
+
+alarm[0] = 20;
 </string>
           </argument>
         </arguments>
@@ -110,17 +111,14 @@ alarm[0] = 10;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/*if(point_distance(x, y, xx, yy) &lt; 6) {
-    pos++;
-    if( pos = path_get_number(path) ) {
-        instance_destroy();
+            <string>if(point_distance(x, y, nextPositionX, nextPositionY) &lt; 6) {
+    positionInPath++;
+    if( positionInPath &lt;= path_get_number(path) ) {
+        nextPositionX = path_get_point_x(path, positionInPath);
+        nextPositionY = path_get_point_y(path, positionInPath); 
     }
-    else {
-        xx = path_get_point_x(path, pos);
-        yy = path_get_point_y(path, pos); 
-    }
-}*/
-mp_potential_step(xx, yy, 3, false);
+}
+mp_potential_step(nextPositionX, nextPositionY, 3, false);
 image_angle = direction;
 </string>
           </argument>
@@ -182,6 +180,10 @@ image_angle = direction;
             <kind>1</kind>
             <string>draw_self();
 draw_path(path, x, y, true);
+
+for(var i=0 ; i &lt; path_get_number(path) ; i++){
+    draw_circle_colour(path_get_point_x(path, i), path_get_point_y(path, i), 2, c_red, c_red, false);
+}
 </string>
           </argument>
         </arguments>

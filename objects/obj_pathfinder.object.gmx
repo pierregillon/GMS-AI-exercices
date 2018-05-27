@@ -109,15 +109,22 @@ alarm[0] = 20;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(point_distance(x, y, nextPositionX, nextPositionY) &lt; 6) {
+            <string>var spd = 3;
+
+if(point_distance(x, y, nextPositionX, nextPositionY) &lt; 2 * spd) {
     positionInPath++;
     if( positionInPath &lt;= path_get_number(path) ) {
         nextPositionX = path_get_point_x(path, positionInPath);
         nextPositionY = path_get_point_y(path, positionInPath); 
         alarm[0] = 20;
     }
+    else {
+        instance_destroy();
+    }
 }
-mp_potential_step(nextPositionX, nextPositionY, 2, false);
+
+mp_potential_step(nextPositionX, nextPositionY, spd, false);
+
 image_angle = direction;
 </string>
           </argument>

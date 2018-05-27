@@ -31,6 +31,7 @@ nextPositionX = 0;
 nextPositionY = 0;
 positionInPath = 0;
 alarm[0] = 1;
+speed = 2;
 </string>
           </argument>
         </arguments>
@@ -136,6 +137,23 @@ alarm[0] = 1;
         image_angle = direction;
     }
 }
+
+
+speed = 2;
+direction = point_direction(x, y, nextPositionX, nextPositionY);
+
+if (place_meeting(x + hspeed, y + vspeed, obj_pathfinder)) {
+    speed = 0;
+}
+
+if (place_meeting(x + hspeed, y + vspeed, obj_wall)) {
+    speed = 0;
+}
+
+//mp_potential_step(nextPositionX, nextPositionY, 2, false);
+
+
+image_angle = direction;
 </string>
           </argument>
         </arguments>

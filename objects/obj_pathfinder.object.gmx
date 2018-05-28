@@ -25,13 +25,12 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>spd = 3;
+            <string>spd = 2;
 path = path_add();
 nextPositionX = 0;
 nextPositionY = 0;
 positionInPath = 0;
 alarm[0] = 1;
-speed = 2;
 </string>
           </argument>
         </arguments>
@@ -125,8 +124,23 @@ speed = 2;
             instance_destroy();
         }
     }
+
+    speed = spd;
     
-    mp_potential_step(nextPositionX, nextPositionY, spd, false);
+    if (place_meeting(x + hspeed, y + vspeed, obj_wall)) {
+        speed = 0;
+    }
+    else if (place_meeting(x + hspeed, y + vspeed, obj_pathfinder)) {
+        /*for(var i=0 ; i &lt; 360 ; i+=10) {
+            direction += 10;
+            if(!place_meeting(x + hspeed, y + vspeed, obj_pathfinder)) {
+                break;
+            }
+        }*/
+        /*direction += 45;
+        nextPositionX = (x + hspeed) * 4;
+        nextPositionY = (y + vspeed) * 4;*/
+        mp_potential_step(nextPositionX, nextPositionY, spd, false);
     
     if( positionInPath + 1 &lt;= path_get_number(path) ) {
         var posX = path_get_point_x(path, positionInPath + 1);
@@ -138,22 +152,7 @@ speed = 2;
     }
 }
 
-
-speed = 2;
-direction = point_direction(x, y, nextPositionX, nextPositionY);
-
-if (place_meeting(x + hspeed, y + vspeed, obj_pathfinder)) {
-    speed = 0;
 }
-
-if (place_meeting(x + hspeed, y + vspeed, obj_wall)) {
-    speed = 0;
-}
-
-//mp_potential_step(nextPositionX, nextPositionY, 2, false);
-
-
-image_angle = direction;
 </string>
           </argument>
         </arguments>

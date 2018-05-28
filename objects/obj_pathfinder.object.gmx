@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>path = path_add();
+            <string>spd = 3;
+path = path_add();
 nextPositionX = 0;
 nextPositionY = 0;
 positionInPath = 0;
@@ -75,18 +76,20 @@ alarm[0] = 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if(scr_Define_Path(path)) {
-    positionInPath = 1;
-    nextPositionX = path_get_point_x(path, positionInPath);
-    nextPositionY = path_get_point_y(path, positionInPath);
+            <string>if(!global.pause) {
+    if(scr_Define_Path(path)) {
+        positionInPath = 1;
+        nextPositionX = path_get_point_x(path, positionInPath);
+        nextPositionY = path_get_point_y(path, positionInPath);
+    }
+    else {
+        nextPositionX = obj_Finish.x;
+        nextPositionY = obj_Finish.y;
+    }
+    
+    
+    alarm[0] = 20;
 }
-else {
-    nextPositionX = obj_Finish.x;
-    nextPositionY = obj_Finish.y;
-}
-
-
-alarm[0] = 20;
 </string>
           </argument>
         </arguments>
@@ -109,23 +112,23 @@ alarm[0] = 20;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>var spd = 3;
-
-if(point_distance(x, y, nextPositionX, nextPositionY) &lt; 2 * spd) {
-    positionInPath++;
-    if( positionInPath &lt;= path_get_number(path) ) {
-        nextPositionX = path_get_point_x(path, positionInPath);
-        nextPositionY = path_get_point_y(path, positionInPath); 
-        alarm[0] = 20;
+            <string>if(!global.pause) {
+    if(point_distance(x, y, nextPositionX, nextPositionY) &lt; 2 * spd) {
+        positionInPath++;
+        if( positionInPath &lt;= path_get_number(path) ) {
+            nextPositionX = path_get_point_x(path, positionInPath);
+            nextPositionY = path_get_point_y(path, positionInPath); 
+            alarm[0] = 20;
+        }
+        else {
+            instance_destroy();
+        }
     }
-    else {
-        instance_destroy();
-    }
+    
+    mp_potential_step(nextPositionX, nextPositionY, spd, false);
+    
+    image_angle = direction;
 }
-
-mp_potential_step(nextPositionX, nextPositionY, spd, false);
-
-image_angle = direction;
 </string>
           </argument>
         </arguments>

@@ -131,27 +131,22 @@ alarm[0] = 1;
         speed = 0;
     }
     else if (place_meeting(x + hspeed, y + vspeed, obj_pathfinder)) {
-        /*for(var i=0 ; i &lt; 360 ; i+=10) {
-            direction += 10;
-            if(!place_meeting(x + hspeed, y + vspeed, obj_pathfinder)) {
-                break;
-            }
-        }*/
-        /*direction += 45;
-        nextPositionX = (x + hspeed) * 4;
-        nextPositionY = (y + vspeed) * 4;*/
-        mp_potential_step(nextPositionX, nextPositionY, spd, false);
+        direction += 45;
+    }
+    else {
+        direction = point_direction(x, y, nextPositionX, nextPositionY);
+    }
     
-    if( positionInPath + 1 &lt;= path_get_number(path) ) {
+    image_angle = direction;
+    
+    /*if( positionInPath + 1 &lt;= path_get_number(path) ) {
         var posX = path_get_point_x(path, positionInPath + 1);
         var posY = path_get_point_y(path, positionInPath + 1); 
         image_angle = point_direction(x, y, posX, posY);
     }
     else {
         image_angle = direction;
-    }
-}
-
+    }*/
 }
 </string>
           </argument>

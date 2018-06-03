@@ -1,0 +1,2 @@
+global.debug = !global.debug;
+
